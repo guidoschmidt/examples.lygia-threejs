@@ -1,6 +1,7 @@
 import {
   PerspectiveCamera,
   Scene,
+  DirectionalLight,
   WebGLRenderer,
   Mesh,
   Vector3,
@@ -101,14 +102,14 @@ groundMesh.material.uniforms.u_diffuseColor.value = new Color(0xffffff);
 scene.add(groundMesh);
 
 const sphere = new SphereGeometry(0.5);
-sphere.translate(0, 0.5, 0);
+sphere.translate(0.75, 0.5, 0);
 const sphereMesh = new Mesh(sphere, lygiaMaterial.clone());
 sphereMesh.castShadow = true;
 sphereMesh.material.uniforms.u_diffuseColor.value = new Color(0xff0000);
 scene.add(sphereMesh);
 
 const box = new BoxGeometry(0.5, 2.0, 0.5);
-box.translate(0, 1.01, -1);
+box.translate(-0.75, 1.01, 0);
 const boxMesh = new Mesh(box, lygiaMaterial.clone());
 boxMesh.castShadow = true;
 boxMesh.material.uniforms.u_diffuseColor.value = new Color(0x0000ff);

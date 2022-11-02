@@ -41,7 +41,7 @@ void main() {
   float shadowing = shadow(u_shadowMap,
                            vec2(1024.0),
                            shadowProjCoords.xy,
-                           shadowProjCoords.z + 0.004);
+                           shadowProjCoords.z + 0.0048);
   final.rgb *= shadowing * 0.8 + 0.2;
 
   fragColor = final;
