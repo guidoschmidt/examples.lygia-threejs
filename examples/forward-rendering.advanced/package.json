@@ -1,0 +1,16 @@
+{
+  "name": "forward-rendering.advanced",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "@types/three": "^0.144.0",
+    "sass": "^1.55.0",
+    "three": "^0.146.0",
+    "vite": "^3.2.2",
+    "vite-plugin-glsl": "^0.5.3"
+  },
+  "scripts": {
+    "dev": "vite"
+  }
+}

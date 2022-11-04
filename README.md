@@ -3,9 +3,10 @@ These are examples of how to use [LYGIA Shader Library](https://lygia.xyz/) with
 
 ---
 
-| Example | Preveiw |
-| -------------- | ---------- |
-| forward rendering [basic] | ![Forward rendering [basic]](./img/forward-rendering.basic.png) |
+| Example                                           | Preveiw                                                                                 |
+|---------------------------------------------------|-----------------------------------------------------------------------------------------|
+| forward rendering [basic]                         | ![Forward rendering [basic]]( ./examples/forward-rendering.basic/screenshot.png )       |
+| forward rendering [advanced], 5 x 5 PBR Materials | ![Forward rendering [advanced]]( ./examples/forward-rendering.advanced/screenshot.png ) |
 
 ---
 
