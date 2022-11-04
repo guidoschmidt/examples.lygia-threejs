@@ -57,16 +57,16 @@ const scene = new Scene();
 // Would be nice, if we could re-use the shadow map of
 // THREEs native lights. However, it looks like there
 // are some incosistensies.
-const light = new DirectionalLight(0xffffff, 1);
-light.position.set(3, 3, 3);
-light.lookAt(0, 0, 0);
-light.castShadow = true;
-scene.add(light);
-light.shadow.mapSize.width = 1024;
-light.shadow.mapSize.height = 1024;
-light.shadow.camera.near = 0.1;
-light.shadow.camera.far = 10;
-light.shadow.focus = 1;
+// const light = new DirectionalLight(0xffffff, 1);
+// light.position.set(3, 3, 3);
+// light.lookAt(0, 0, 0);
+// light.castShadow = true;
+// scene.add(light);
+// light.shadow.mapSize.width = 1024;
+// light.shadow.mapSize.height = 1024;
+// light.shadow.camera.near = 0.1;
+// light.shadow.camera.far = 10;
+// light.shadow.focus = 1;
 
 const shadowCamera = new PerspectiveCamera(60, 1.0, 0.1, 100.0);
 scene.add(shadowCamera);
@@ -121,13 +121,6 @@ scene.add(boxMesh);
 const stats = Stats();
 document.body.appendChild(stats.dom);
 
-const lightShadowMapViewer = new ShadowMapViewer(light);
-lightShadowMapViewer.position.x = 0;
-lightShadowMapViewer.position.y = window.innerHeight - 1024 / 4;
-lightShadowMapViewer.size.width = 1024 / 4;
-lightShadowMapViewer.size.height = 1024 / 4;
-lightShadowMapViewer.update();
-
 function resize(camera: PerspectiveCamera, renderer: WebGLRenderer) {
   const { innerWidth: width, innerHeight: height } = window;
   const aspect = width / height;
@@ -139,28 +132,25 @@ function resize(camera: PerspectiveCamera, renderer: WebGLRenderer) {
 
 function render() {
   // Render shadow map
-  // renderer.setRenderTarget(shadowTarget);
-  // scene.overrideMaterial = shadowMaterial;
-  // renderer.render(scene, shadowCamera);
-  // scene.overrideMaterial = null;
-  // renderer.setRenderTarget(null);
+  renderer.setRenderTarget(shadowTarget);
+  scene.overrideMaterial = shadowMaterial;
+  renderer.render(scene, shadowCamera);
+  scene.overrideMaterial = null;
+  renderer.setRenderTarget(null);
 
   // Render scene
   const shadowModelViewMatrix = shadowCamera.matrixWorldInverse.multiply(
     shadowCamera.matrixWorld
   );
   scene.traverse((child) => {
-    if (child.type === "Mesh" && light.shadow.map) {
+    if (child.type === "Mesh") {
       const material = (child as Mesh).material as RawShaderMaterial;
-      material.uniforms.u_shadowMap.value = light.shadow.map.texture;
+      material.uniforms.u_shadowMap.value = shadowMap;
       material.uniforms.u_light_modelViewMatrix.value = shadowModelViewMatrix;
     }
   });
   renderer.render(scene, camera);
 
-  if (light.shadow.map) {
-    lightShadowMapViewer.render(renderer);
-  }
   stats.update();
 }
 
