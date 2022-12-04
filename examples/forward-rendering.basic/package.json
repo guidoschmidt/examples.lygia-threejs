@@ -4,11 +4,11 @@
   "type": "module",
   "license": "MIT",
   "dependencies": {
-    "@types/three": "^0.144.0",
-    "sass": "^1.55.0",
-    "three": "^0.146.0",
-    "vite": "^3.2.2",
-    "vite-plugin-glsl": "^0.5.3"
+    "@types/three": "^0.146.0",
+    "sass": "^1.56.1",
+    "three": "^0.147.0",
+    "vite": "^3.2.4",
+    "vite-plugin-glsl": "^0.5.4"
   },
   "scripts": {
     "dev": "vite"

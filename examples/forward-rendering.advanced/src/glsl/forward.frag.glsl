@@ -20,6 +20,7 @@ in vec4 v_shadowPosition;
 #define LIGHT_POSITION u_lightPosition
 #define CAMERA_POSITION u_cameraPosition
 #define ATMOSPHERE_LIGHT_SAMPLES 8
+#define TONEMAP_FNC tonemapACES
 
 #include "../../../lygia/lighting/envMap.glsl";
 #include "../../../lygia/lighting/pbr.glsl";
@@ -44,7 +45,6 @@ void main() {
   material.normal = normalize(v_normal);
   material.metallic = u_metallic;
   material.roughness = u_roughness;
-  material.reflectance = u_reflectance;
   material.ambientOcclusion = 0.5;
 
   final = pbr(material);
@@ -57,7 +57,6 @@ void main() {
                            shadowProjCoords.xy,
                            shadowProjCoords.z + 0.0047);
 
-  #define TONEMAP_FNC tonemapACES
   final.rgb = tonemap(final.rgb);
   final.rgb *= shadowing;
 

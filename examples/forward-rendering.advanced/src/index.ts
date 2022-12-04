@@ -106,7 +106,6 @@ for (var x = -count; x <= count; x++) {
   for (var y = -count; y <= count; y++) {
     const i = 0.1 + (x + count) / (2 * count + 0.2);
     const j = 0.1 + (x + count) / (2 * count + 0.2);
-    console.log(i, j);
     const sphere = new SphereGeometry(0.5, 100, 100);
     sphere.translate(x * 1.5, 0.5, y * 1.5);
     const sphereMesh = new Mesh(sphere, lygiaMaterial.clone());
