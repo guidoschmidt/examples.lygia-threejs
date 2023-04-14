@@ -12,7 +12,7 @@ in vec3 v_normal;
 in vec3 v_position;
 in vec4 v_shadowPosition;
 
-#define SAMPLER_FNC(TEX, UV) texture(TEX, UV)
+#define FNC_SAMPLE(TEX, UV) texture(TEX, UV)
 #define LIGHT_POSITION       u_lightPosition
 #define LIGHT_COLOR          vec3(1.0)
 #define LIGHT_SHADOWMAP      u_shadowMap
@@ -33,7 +33,6 @@ void main() {
 
   float diffuseTerm = diffuse(lightDir, v_normal, viewDir, 0.0);
   final.rgb = diffuseTerm * u_diffuseColor;
-
 
   vec3 shadowProjCoords = v_shadowPosition.xyz / v_shadowPosition.w;
   shadowProjCoords = shadowProjCoords * 0.5 + 0.5;

@@ -69,7 +69,7 @@ const scene = new Scene();
 // light.shadow.camera.far = 100;
 
 let lightPosition = new Vector3(3, 3, 3);
-const shadowCamera = new PerspectiveCamera(90, 1.0, 0.1, 100.0);
+const shadowCamera = new PerspectiveCamera(120, 1.0, 0.05, 100.0);
 scene.add(shadowCamera);
 shadowCamera.position.copy(lightPosition);
 shadowCamera.lookAt(0, 0, 0);
@@ -79,8 +79,8 @@ const shadowMaterial = new RawShaderMaterial({
   fragmentShader: shadowFragmentShader,
   glslVersion: GLSL3,
 });
-const shadowMap: DepthTexture = new DepthTexture(1024, 1024);
-const shadowTarget: WebGLRenderTarget = new WebGLRenderTarget(1024, 1024, {
+const shadowMap: DepthTexture = new DepthTexture(2048, 2048);
+const shadowTarget: WebGLRenderTarget = new WebGLRenderTarget(2048, 2048, {
   depthTexture: shadowMap,
 });
 
@@ -107,23 +107,24 @@ for (var x = -count; x <= count; x++) {
     const i = 0.1 + (x + count) / (2 * count + 0.2);
     const j = 0.1 + (x + count) / (2 * count + 0.2);
     const sphere = new SphereGeometry(0.5, 100, 100);
-    sphere.translate(x * 1.5, 0.5, y * 1.5);
     const sphereMesh = new Mesh(sphere, lygiaMaterial.clone());
     sphereMesh.castShadow = true;
+    sphereMesh.name = `Sphere ${x}/${y}`;
     const hue = Math.round(Math.random() * 360);
     sphereMesh.material.uniforms.u_diffuseColor.value = new Color(
-      `hsl(${hue}, 100%, 50%)`
+      `hsl(${hue}, ${Math.round(i * 100)}%, ${20 + Math.round(j * 50)}%)`
     );
-    sphereMesh.material.uniforms.u_roughness.value = i;
-    sphereMesh.material.uniforms.u_metallic.value = j;
-    sphereMesh.material.uniforms.u_reflectance.value = 0.2;
+    sphereMesh.position.set(x * 1.5, Math.sin(x * y) + 1.0, y * 1.5);
+    sphereMesh.material.uniforms.u_roughness.value = j * i;
+    sphereMesh.material.uniforms.u_metallic.value = i;
+    sphereMesh.material.uniforms.u_reflectance.value = j;
     scene.add(sphereMesh);
   }
 }
 
-const ground = new PlaneGeometry(count * 4.0, count * 4.0);
+const ground = new PlaneGeometry(count * 10.0, count * 10.0);
 ground.rotateX(-Math.PI * 0.5);
-ground.translate(0, -0.2, 0);
+ground.translate(0, -2.0, 0);
 const groundMesh = new Mesh(ground, lygiaMaterial.clone());
 groundMesh.receiveShadow = true;
 groundMesh.material.uniforms.u_diffuseColor.value = new Color(0xffffff);
@@ -145,13 +146,11 @@ function resize(camera: PerspectiveCamera, renderer: WebGLRenderer) {
 }
 
 function render() {
-  lightPosition.set(
-    2 * Math.sin(clock.getElapsedTime()),
-    5 + 2 * (Math.sin(clock.getElapsedTime() * 0.5) + 2.0),
-    2 * Math.cos(clock.getElapsedTime())
-  );
-  shadowCamera.lookAt(0, 0, 0);
+  const dt = clock.getElapsedTime();
+
+  lightPosition.set(3, 10, 3);
   shadowCamera.position.copy(lightPosition);
+  shadowCamera.lookAt(0, 0, 0);
   // Render shadow map
   renderer.setRenderTarget(shadowTarget);
   scene.overrideMaterial = shadowMaterial;
@@ -165,6 +164,11 @@ function render() {
   );
   scene.traverse((child) => {
     if (child.type === "Mesh") {
+      if (child.name.includes("Sphere")) {
+        child.position.y = Math.sin(
+          Math.sin(child.position.x + child.position.z + dt) * 0.5
+        );
+      }
       const material = (child as Mesh).material as RawShaderMaterial;
       material.uniforms.u_lightPosition.value = lightPosition;
       material.uniforms.u_shadowMap.value = shadowMap;

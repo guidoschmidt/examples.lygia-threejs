@@ -3,7 +3,10 @@ precision highp float;
 uniform vec3 u_cameraPosition;
 uniform vec3 u_lightPosition;
 uniform vec3 u_diffuseColor;
+uniform vec3 u_noise[9];
+uniform vec3 u_samples[9];
 uniform sampler2D u_shadowMap;
+uniform mat4 u_projection;
 
 uniform float u_metallic;
 uniform float u_roughness;
@@ -16,17 +19,19 @@ in vec3 v_normal;
 in vec3 v_position;
 in vec4 v_shadowPosition;
 
-#define SAMPLER_FNC(TEX, UV) texture(TEX, UV)
+#define FNC_SAMPLE(TEX, UV) texture(TEX, UV)
 #define LIGHT_POSITION u_lightPosition
 #define CAMERA_POSITION u_cameraPosition
 #define ATMOSPHERE_LIGHT_SAMPLES 8
 #define TONEMAP_FNC tonemapACES
 
+#include "../../../lygia/generative/random.glsl"
 #include "../../../lygia/lighting/envMap.glsl";
 #include "../../../lygia/lighting/pbr.glsl";
 #include "../../../lygia/lighting/shadow.glsl";
 #include "../../../lygia/lighting/material/new.glsl"
 #include "../../../lygia/lighting/atmosphere.glsl"
+#include "../../../lygia/lighting/ssao.glsl"
 #include "../../../lygia/color/dither.glsl"
 #include "../../../lygia/color/tonemap.glsl"
 
@@ -45,7 +50,7 @@ void main() {
   material.normal = normalize(v_normal);
   material.metallic = u_metallic;
   material.roughness = u_roughness;
-  material.ambientOcclusion = 0.5;
+  material.ambientOcclusion = 0.6;
 
   final = pbr(material);
 
@@ -53,13 +58,12 @@ void main() {
   shadowProjCoords = shadowProjCoords * 0.5 + 0.5;
 
   float shadowing = shadow(u_shadowMap,
-                           vec2(1024.0),
+                           vec2(2048.0),
                            shadowProjCoords.xy,
                            shadowProjCoords.z + 0.0047);
 
   final.rgb = tonemap(final.rgb);
   final.rgb *= shadowing;
-
 
   fragColor = final;
 }

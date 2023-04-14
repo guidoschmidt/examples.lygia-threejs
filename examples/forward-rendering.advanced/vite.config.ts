@@ -3,7 +3,12 @@ import { defineConfig } from "vite";
 import glsl from "vite-plugin-glsl";
 
 export default defineConfig({
-  plugins: [glsl()],
+  plugins: [
+    glsl({
+      warnDuplicatedImports: true,
+      compress: false,
+    }),
+  ],
   build: {
     target: "esnext",
   },
