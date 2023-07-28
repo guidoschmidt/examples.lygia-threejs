@@ -5,6 +5,7 @@ These are examples of how to use [LYGIA Shader Library](https://lygia.xyz/) with
 
 | Example                                           | Preveiw                                                                                 |
 |---------------------------------------------------|-----------------------------------------------------------------------------------------|
+| marching squares [2D]                             | ![Marching Squares [2D]]( ./examples/2d-marching-squares/screenshot.png )       |
 | forward rendering [basic]                         | ![Forward rendering [basic]]( ./examples/forward-rendering.basic/screenshot.png )       |
 | forward rendering [advanced], 5 x 5 PBR Materials | ![Forward rendering [advanced]]( ./examples/forward-rendering.advanced/screenshot.png ) |
 
