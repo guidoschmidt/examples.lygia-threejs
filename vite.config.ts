@@ -7,7 +7,7 @@ import glsl from "vite-plugin-glsl";
 
 const exampleEntries = {};
 
-const filter = ["lygia", "node_modules", "dist"];
+const filter = ["lygia", "node_modules", "dist", ".git", ".github", "blend"];
 const exclude = [
   "raycasting",
   "raycasting.sdf",
