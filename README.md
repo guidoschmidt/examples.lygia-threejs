@@ -5,37 +5,29 @@ These are examples of how to use [LYGIA Shader Library](https://lygia.xyz/) with
 
 | Example                                           | Preveiw                                                                                 |
 |---------------------------------------------------|-----------------------------------------------------------------------------------------|
-| marching squares [2D]                             | ![Marching Squares [2D]]( ./examples/2d-marching-squares/screenshot.png )       |
-| forward rendering [basic]                         | ![Forward rendering [basic]]( ./examples/forward-rendering.basic/screenshot.png )       |
-| forward rendering [advanced], 5 x 5 PBR Materials | ![Forward rendering [advanced]]( ./examples/forward-rendering.advanced/screenshot.png ) |
+| marching squares [2D]                             | ![Marching Squares [2D]]( ./2d-marching-squares/screenshot.png )       |
+| forward rendering [basic]                         | ![Forward rendering [basic]]( ./forward-rendering.basic/screenshot.png )       |
+| forward rendering [advanced], 5 x 5 PBR Materials | ![Forward rendering [advanced]]( ./forward-rendering.advanced/screenshot.png ) |
 
 ---
 
 ### How to start?
-Clone this repository recursivelly
+Clone this repository including its submodules. [LYGIA](https://github.com/patriciogonzalezvivo/lygia) is used as
+git submodule in this repository.
 
 ```bash
-git clone --recursive git@github.com:guidoschmidt/lygia_threejs_examples.git
+git clone --recurse-submodules git@github.com:guidoschmidt/lygia_threejs_examples.git
 ```
 
 ---
 
 ### Run the examples
-The repository contains several examples in the [`./examples`](./examples)
-folder. Each example is its own sub-project. You can start each example as following:
+The repository contains several examples in. Each example is its own sub-project. You can start each example as following:
 
-Using [yarn](https://yarnpkg.com/)
 ```bash
-cd examples/forward-rendering.basic
-yarn install
-yarn dev
-```
-
-Using [npm](https://docs.npmjs.com/cli/v6/using-npm)
-```bash
-cd examples/forward-rendering.basic
-npm install
-npm run dev
+cd 3d-forward-rendering-basic
+npm | yarn | pnpm install
+npm | yarn | pnpm dev
 ```
 
 ---
