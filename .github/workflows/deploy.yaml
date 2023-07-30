@@ -45,7 +45,7 @@ jobs:
         uses: burnett01/rsync-deployments@5.2.1
         with:
           switches: -avzr --delete --exclude="src/,node_modules/,public/"
-          path: ./dist/*
+          path: ./dist
           remote_host: ${{ secrets.DEPLOY_HOST }}
           remote_path: ${{ secrets.DEPLOY_PATH }}
           remote_user: ${{ secrets.DEPLOY_USER }}
