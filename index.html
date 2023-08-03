@@ -5,6 +5,32 @@
     <title>LYGIA three.js examples</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   </head>
+  <style>
+    :root {
+      --background: rgb(250, 250, 250);
+      --foreground: rgb(42, 42, 42);
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 10vw;
+      background: var(--background);
+      font-family: monospace;
+      font-size: calc(12px + 0.5vw);
+    }
+
+    a {
+      width: fit-content;
+      padding: 10px;
+      border-radius: 3px;
+      background: var(--foreground);
+      color: var(--background);
+      text-decoration: none;
+    }
+  </style>
   <body>
     <a href="./2d-simple/index.html">2D / Simple</a>
     <a href="./2d-marching-squares/index.html">2D / Marching Squares</a>

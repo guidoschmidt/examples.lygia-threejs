@@ -1,5 +1,8 @@
 # Lygia Examples
-These are examples of how to use [LYGIA Shader Library](https://lygia.xyz/) with [three.js](https://threejs.org/)
+These are examples of how to use [LYGIA Shader Library](https://lygia.xyz/) with
+[three.js](https://threejs.org/)
+
+Live examples: [lygia.guidoschmidt.cc](https://lygia.guidoschmidt.cc)
 
 ---
 
@@ -27,6 +30,11 @@ The repository contains several examples in. Each example is its own sub-project
 ```bash
 cd 3d-forward-rendering-basic
 npm | yarn | pnpm install
+npm | yarn | pnpm dev
+```
+
+You can also start an overview HTML page by running just:
+```bash
 npm | yarn | pnpm dev
 ```
 
