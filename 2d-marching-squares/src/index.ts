@@ -1,7 +1,15 @@
 import {
-  Clock, GLSL3, Mesh, OrthographicCamera, PCFShadowMap, PlaneGeometry, RawShaderMaterial, Scene,
+  Clock,
+  GLSL3,
+  Mesh,
+  OrthographicCamera,
+  PCFShadowMap,
+  PlaneGeometry,
+  RawShaderMaterial,
+  Scene,
+  TextureLoader,
   Vector2,
-  WebGLRenderer
+  WebGLRenderer,
 } from "three";
 import Stats from "three/examples/jsm/libs/stats.module";
 // GLSL
@@ -25,7 +33,6 @@ renderer.shadowMap.type = PCFShadowMap;
 const clock = new Clock();
 clock.start();
 
-
 const scene = new Scene();
 
 const camera = new OrthographicCamera(-0.5, 0.5, 0.5, -0.5, -1, 1);
@@ -33,16 +40,17 @@ const camera = new OrthographicCamera(-0.5, 0.5, 0.5, -0.5, -1, 1);
 const plane = new PlaneGeometry(1, 1);
 const lygiaMaterial = new RawShaderMaterial({
   uniforms: {
-    u_time: {value: 0},
-    u_resolution: {value: new Vector2(canvas.width, canvas.height)},
-    u_mouse: {value: new Vector2(0, 0) }
+    u_time: { value: 0 },
+    u_resolution: { value: new Vector2(canvas.width, canvas.height) },
+    u_mouse: { value: new Vector2(0, 0) },
+    u_texture: { value: new TextureLoader().load("./banksy.jpg") },
   },
   vertexShader,
   fragmentShader,
   glslVersion: GLSL3,
 });
 const fullscreenQuad = new Mesh(plane, lygiaMaterial);
-scene.add(fullscreenQuad)
+scene.add(fullscreenQuad);
 
 const stats = Stats();
 document.body.appendChild(stats.dom);
@@ -71,6 +79,6 @@ window.addEventListener("resize", () => resize(camera, renderer));
 window.addEventListener("pointermove", (ev) => {
   const { clientX, clientY } = ev;
   const { innerWidth, innerHeight } = window;
-  lygiaMaterial.uniforms.u_mouse.value.x = clientX / innerWidth
-  lygiaMaterial.uniforms.u_mouse.value.y = clientY / innerHeight
-})
+  lygiaMaterial.uniforms.u_mouse.value.x = clientX / innerWidth;
+  lygiaMaterial.uniforms.u_mouse.value.y = clientY / innerHeight;
+});
