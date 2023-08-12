@@ -16,7 +16,8 @@ float sampleNoise(in vec2 uv) {
     return pnoise(uv * 5.0, vec2(0.0));
 }
 
-#define FNC_SAMPLEMARCHINGSQUARES(TEX, UV) sampleNoise(UV)
+// #define FNC_SAMPLEMARCHINGSQUARES(TEX, UV) sampleNoise(UV)
+
 
 #include "../../../lygia/sample/marchingSquares.glsl";
 
@@ -24,7 +25,8 @@ void main() {
   vec4 final = vec4(1.0, 0.0, 0.0, 1.0);
 
   vec2 st = ratio(v_uv, u_resolution);
-  vec2 ms = sampleMarchinSquares(v_uv, u_texture, u_mouse.x * 60.0, u_mouse.y, u_resolution);
+
+  vec2 ms = sampleMarchinSquares(u_texture, st, u_resolution, u_mouse.x * 60.0, u_mouse.y);
   final.rgb = vec3(ms.r);
 
   fragColor = final;
